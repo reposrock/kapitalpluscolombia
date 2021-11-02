@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="purchase_order_budget_integraton_form_view" model="ir.ui.view">
+            <field name="name">purchase.budget.integration.module.form.view</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+
+              <field name="date_order" position="after">
+                <field name="analytic_account_id" options="{'no_create':True,'no_create_edit':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                     
+              </field>
+
+     		</field>
+
+    </record>
+
+    <record id="budget_integraton_form_view_inherit" model="ir.ui.view">
+            <field name="name">budget.integration.module.form.view</field>
+            <field name="model">crossovered.budget</field>
+            <field name="inherit_id" ref="account_budget.crossovered_budget_view_form"/>
+            <field name="arch" type="xml">
+
+                  <field name="company_id" position="after">
+                      <field name="restrict_allow" widget="radio"/>
+
+                  </field>
+
+                <xpath expr="//field[@name='date_to']" position="after">
+                    <field name="pertial" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="analytic_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='crossovered_budget_line']/tree/field[@name='paid_date']" position="after">
+                    <field name="pertial_amount" widget="monetary" attrs="{'column_invisible':[('parent.pertial','!=',True)]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='crossovered_budget_line']/tree/field[@name='analytic_account_id']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='crossovered_budget_line']/tree" position="attributes">
+                    <attribute name="editable"/>
+                </xpath>
+
+                <xpath expr="//field[@name='crossovered_budget_line']/form/group/group[2]/field[@name='paid_date']" position="after">
+                    <field name="pertial_amount" widget="monetary" attrs="{'invisible':[('parent.pertial','!=',True)]}" sum="Partial Amount"/>
+                    <field name="practical_amount" readonly="1"/>
+                </xpath>
+
+        </field>
+
+    </record>
+</odoo>
