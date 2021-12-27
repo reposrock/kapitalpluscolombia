@@ -5,13 +5,12 @@
 		<record model="ir.ui.view" id="crossovered_budget_form_inherit">
 			<field name="name">crossovered.budget.form</field>
 			<field name="model">crossovered.budget</field>
-			<field name="inherit_id" ref="account_budget_alert_app.crossovered_budget_view_form"/>
+			<field name="inherit_id" ref="account_budget.crossovered_budget_view_form"/>
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='crossovered_budget_line']/tree//field[@name='analytic_account_id']" position="after">
 					<field name="warning_type"/>
-					<field name="allow2_manager" attrs="{'invisible': [('warning_type', '!=', 'restrict')]}"/>
 					<field name="is_active"/>
-					
+					<field name="allow2_manager" attrs="{'invisible': [('warning_type', '!=', 'restrict')]}"/>
 				</xpath>
 
 				<xpath expr="//field[@name='crossovered_budget_line']/form/group/group/field[@name='analytic_account_id']" position="after">
@@ -29,7 +28,7 @@
 			<field name="inherit_id" ref="purchase.purchase_order_form"/>
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='name']" position="after">
-					<div attrs="{'invisible':[('is_warning','!=',True)]}" class="alert alert-info">
+					<div attrs="{'invisible':[('is_warning','!=',True)]}" class="label label-info">
 					
 					<field invisible="1" name="is_warning"/>
 					<span><h3><field readonly="1" name="exceed_note"/></h3></span>
@@ -46,7 +45,7 @@
 				<xpath expr="//field[@name='name']" position="after">
 					<div attrs="{'invisible':[('is_warning','!=',True)]}">
 					<field invisible="1" name="is_warning"/>
-					<span><h3><field readonly="1" name="exceed_note" class="alert alert-info"/></h3></span>
+					<span><h3><field readonly="1" name="exceed_note" class="label label-info"/></h3></span>
 					</div>
 				</xpath>
 			</field>
